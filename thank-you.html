@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Contacting Us!</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        /* --- Global Styles & Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #0041a3;
+            --text-color: #333;
+            --light-gray: #f0f2f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* Prevents scrollbars from confetti */
+            color: var(--text-color);
+        }
+
+        /* --- Main Container --- */
+        .thank-you-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: fadeInContainer 0.8s 0.5s ease-out forwards;
+        }
+        
+        @keyframes fadeInContainer {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* --- Animated Emoji --- */
+        .emoji {
+            font-size: 5rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: popIn 0.6s 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            transform: scale(0);
+        }
+
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* --- Content Styling --- */
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* --- Back Button --- */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 82, 204, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 82, 204, 0.4);
+        }
+
+        /* --- Confetti (Patakhe) Animation --- */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background-color: #f00; /* Default color */
+            top: -20px; /* Start from above the screen */
+            opacity: 0.9;
+            animation: fall 5s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            p {
+                font-size: 0.95rem;
+            }
+            .thank-you-container {
+                padding: 30px 25px;
+            }
+            .emoji {
+                font-size: 4rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <div class="thank-you-container">
+        <span class="emoji">😊</span>
+        <h1>Thank You!</h1>
+        <p>Aapka message hum tak pahunch gaya hai. 24 ghante ke andar hamari team aapse contact karegi aapne jo details send ki hai uske upar.</p>
+        <a href="index.html" class="back-button">Back to Website</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const confettiContainer = document.getElementById('confetti-container');
+            const confettiCount = 150; // Kitne patakhe girane hain
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+
+                // Random values for each confetti
+                const xPos = Math.random() * 100 + 'vw';
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                const animationDelay = Math.random() * 2 + 's';
+                const duration = Math.random() * 3 + 4 + 's'; // 4 to 7 seconds fall time
+
+                confetti.style.left = xPos;
+                confetti.style.backgroundColor = randomColor;
+                confetti.style.animationDelay = animationDelay;
+                confetti.style.animationDuration = duration;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+
+                // Two types of confetti shapes
+                if (Math.random() > 0.5) {
+                    confetti.style.height = '10px';
+                    confetti.style.width = '10px';
+                    confetti.style.borderRadius = '50%';
+                } else {
+                    confetti.style.height = '20px';
+                    confetti.style.width = '8px';
+                }
+
+                confettiContainer.appendChild(confetti);
+            }
+        });
+    </script>
+
+</body>
+</html>
